@@ -35,7 +35,11 @@ namespace Spotify_Ad_Blocker
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.bilgisayarlaAçılmaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bilidirimGösterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.geçilenReklamSayısıToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.geçilenDiğerSayısıToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,23 +59,49 @@ namespace Spotify_Ad_Blocker
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bilgisayarlaAçılmaToolStripMenuItem,
-            this.exitToolStripMenuItem});
+            this.bilidirimGösterToolStripMenuItem,
+            this.exitToolStripMenuItem,
+            this.geçilenReklamSayısıToolStripMenuItem,
+            this.geçilenDiğerSayısıToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(205, 52);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(216, 124);
             // 
             // bilgisayarlaAçılmaToolStripMenuItem
             // 
             this.bilgisayarlaAçılmaToolStripMenuItem.Name = "bilgisayarlaAçılmaToolStripMenuItem";
-            this.bilgisayarlaAçılmaToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.bilgisayarlaAçılmaToolStripMenuItem.Size = new System.Drawing.Size(215, 24);
             this.bilgisayarlaAçılmaToolStripMenuItem.Text = "Bilgisayarla Açılma";
             this.bilgisayarlaAçılmaToolStripMenuItem.Click += new System.EventHandler(this.bilgisayarlaAçılmaToolStripMenuItem_Click);
+            // 
+            // bilidirimGösterToolStripMenuItem
+            // 
+            this.bilidirimGösterToolStripMenuItem.Name = "bilidirimGösterToolStripMenuItem";
+            this.bilidirimGösterToolStripMenuItem.Size = new System.Drawing.Size(215, 24);
+            this.bilidirimGösterToolStripMenuItem.Text = "Bildirim Göster";
+            this.bilidirimGösterToolStripMenuItem.Click += new System.EventHandler(this.bilidirimGösterToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(215, 24);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // geçilenReklamSayısıToolStripMenuItem
+            // 
+            this.geçilenReklamSayısıToolStripMenuItem.Name = "geçilenReklamSayısıToolStripMenuItem";
+            this.geçilenReklamSayısıToolStripMenuItem.Size = new System.Drawing.Size(215, 24);
+            this.geçilenReklamSayısıToolStripMenuItem.Text = "Geçilen reklam sayısı";
+            // 
+            // geçilenDiğerSayısıToolStripMenuItem
+            // 
+            this.geçilenDiğerSayısıToolStripMenuItem.Name = "geçilenDiğerSayısıToolStripMenuItem";
+            this.geçilenDiğerSayısıToolStripMenuItem.Size = new System.Drawing.Size(215, 24);
+            this.geçilenDiğerSayısıToolStripMenuItem.Text = "Geçilen diğer sayısı:";
+            // 
+            // timer2
+            // 
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
             // Form1
             // 
@@ -94,6 +124,10 @@ namespace Spotify_Ad_Blocker
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem bilgisayarlaAçılmaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bilidirimGösterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem geçilenReklamSayısıToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem geçilenDiğerSayısıToolStripMenuItem;
+        private System.Windows.Forms.Timer timer2;
     }
 }
 

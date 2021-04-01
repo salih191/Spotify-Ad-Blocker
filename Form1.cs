@@ -58,6 +58,8 @@ namespace Spotify_Ad_Blocker
         private Process spotify;
 
         private string spotifyName = "Spotify";
+        private int reklamSayac = 0;
+        private int digerSayac = 0;
         public Form1()
         {
             InitializeComponent();
@@ -71,6 +73,7 @@ namespace Spotify_Ad_Blocker
                 this.ShowInTaskbar = false;
                 this.Hide();
                 timer1.Start();
+                timer2.Start();
             }
             else
             {
@@ -107,6 +110,7 @@ namespace Spotify_Ad_Blocker
         private void uygulamaVerisi()
         {
             bilgisayarlaAçılmaToolStripMenuItem.Checked = Properties.Settings.Default.BilgisayarlaAcilma;
+            bilidirimGösterToolStripMenuItem.Checked = Settings.Default.BildirimGoster;
         }
         private void bilgisayarlaAçılmaToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -143,6 +147,19 @@ namespace Spotify_Ad_Blocker
             //else if (!spotify.HasExited && spotify.MainWindowTitle.IndexOf("Advertisement") >= 0)
             else if(!spotify.HasExited && (spotify.MainWindowTitle.Equals("Advertisement") || !spotify.MainWindowTitle.Contains(" - ")) && !spotify.MainWindowTitle.Equals("") && !spotify.MainWindowTitle.Equals("Drag") && !spotify.MainWindowTitle.Equals("Spotify Free"))
             {
+                if (Settings.Default.BildirimGoster)
+                {
+                    if ((spotify.MainWindowTitle.Equals("Advertisement")))
+                    {
+                        reklamSayac++;
+                        notifyIcon1.ShowBalloonTip(2000,"Reklam Geçildi","Geçilen toplam reklam:"+reklamSayac,ToolTipIcon.Info);
+                    }
+                    else
+                    {
+                        digerSayac++;
+                        notifyIcon1.ShowBalloonTip(2000, "Diğer Geçildi", "Geçilen toplam diğer:" + digerSayac, ToolTipIcon.Info);
+                    }
+                }
                 acKapa();
             }
             else
@@ -217,5 +234,17 @@ namespace Spotify_Ad_Blocker
             Properties.Settings.Default.Save();
         }
 
+        private void bilidirimGösterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bilidirimGösterToolStripMenuItem.Checked = !bilidirimGösterToolStripMenuItem.Checked;
+            Settings.Default.BildirimGoster = bilidirimGösterToolStripMenuItem.Checked;
+            Settings.Default.Save();
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            geçilenDiğerSayısıToolStripMenuItem.Text = "Gecilen toplam diger:" + digerSayac;
+            geçilenReklamSayısıToolStripMenuItem.Text = "Geçilen toplam reklam:" + reklamSayac;
+        }
     }
 }
