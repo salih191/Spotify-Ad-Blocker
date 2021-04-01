@@ -117,14 +117,14 @@ namespace Spotify_Ad_Blocker
             {
                 //işaretlendi ise Regedit e açılışta çalıştır olarak ekle
                 RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
-                key.SetValue("Kalan Zaman", "\"" + Application.ExecutablePath + "\"");
+                key.SetValue(Application.ProductName, "\"" + Application.ExecutablePath + "\"");
             }
             else              //program oto çalıştırma iptal edilirse
             {
 
                 //işaret kaldırıldı ise Regeditten açılışta çalıştırılacaklardan kaldır
                 RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
-                key.DeleteValue("Kalan Zaman");
+                key.DeleteValue(Application.ProductName);
 
             }
         }
@@ -141,7 +141,7 @@ namespace Spotify_Ad_Blocker
                 spotifyHook();
             }
             //else if (!spotify.HasExited && spotify.MainWindowTitle.IndexOf("Advertisement") >= 0)
-            else if((spotify.MainWindowTitle.Equals("Advertisement") || !spotify.MainWindowTitle.Contains(" - ")) && !spotify.MainWindowTitle.Equals("") && !spotify.MainWindowTitle.Equals("Drag") && !spotify.MainWindowTitle.Equals("Spotify Free"))
+            else if(!spotify.HasExited && (spotify.MainWindowTitle.Equals("Advertisement") || !spotify.MainWindowTitle.Contains(" - ")) && !spotify.MainWindowTitle.Equals("") && !spotify.MainWindowTitle.Equals("Drag") && !spotify.MainWindowTitle.Equals("Spotify Free"))
             {
                 acKapa();
             }
