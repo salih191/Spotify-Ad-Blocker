@@ -145,20 +145,18 @@ namespace Spotify_Ad_Blocker
                 spotifyHook();
             }
             //else if (!spotify.HasExited && spotify.MainWindowTitle.IndexOf("Advertisement") >= 0)
-            else if(!spotify.HasExited && (spotify.MainWindowTitle.Equals("Advertisement") || !spotify.MainWindowTitle.Contains(" - ")) && !spotify.MainWindowTitle.Equals("") && !spotify.MainWindowTitle.Equals("Drag") && !spotify.MainWindowTitle.Equals("Spotify Free"))
+            else if (!spotify.HasExited && (spotify.MainWindowTitle.Equals("Advertisement") || !spotify.MainWindowTitle.Contains(" - ")) && !spotify.MainWindowTitle.Equals("") && !spotify.MainWindowTitle.Equals("Drag") && !spotify.MainWindowTitle.Equals("Spotify Free"))
             {
-                if (Settings.Default.BildirimGoster)
+
+                if ((spotify.MainWindowTitle.Equals("Advertisement")))
                 {
-                    if ((spotify.MainWindowTitle.Equals("Advertisement")))
-                    {
-                        reklamSayac++;
-                        notifyIcon1.ShowBalloonTip(2000,"Reklam Geçildi","Geçilen toplam reklam:"+reklamSayac,ToolTipIcon.Info);
-                    }
-                    else
-                    {
-                        digerSayac++;
-                        notifyIcon1.ShowBalloonTip(2000, "Diğer Geçildi", "Geçilen toplam diğer:" + digerSayac, ToolTipIcon.Info);
-                    }
+                    reklamSayac++;
+                    if (Settings.Default.BildirimGoster) notifyIcon1.ShowBalloonTip(2000, "Reklam Geçildi", "Geçilen toplam reklam:" + reklamSayac, ToolTipIcon.Info);
+                }
+                else
+                {
+                    digerSayac++;
+                    if (Settings.Default.BildirimGoster) notifyIcon1.ShowBalloonTip(2000, "Diğer Geçildi", "Geçilen toplam diğer:" + digerSayac, ToolTipIcon.Info);
                 }
                 acKapa();
             }
@@ -202,7 +200,7 @@ namespace Spotify_Ad_Blocker
         public void acKapa()
         {
             spotifyKapat();
-           try
+            try
             {
                 Process.Start(Settings.Default.SpotifyPath);
             }
