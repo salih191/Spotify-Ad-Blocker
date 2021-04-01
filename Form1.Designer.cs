@@ -39,7 +39,8 @@ namespace Spotify_Ad_Blocker
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.geçilenReklamSayısıToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.geçilenDiğerSayısıToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.sonGeçilenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.çalanŞarkıToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,9 +63,11 @@ namespace Spotify_Ad_Blocker
             this.bilidirimGösterToolStripMenuItem,
             this.exitToolStripMenuItem,
             this.geçilenReklamSayısıToolStripMenuItem,
-            this.geçilenDiğerSayısıToolStripMenuItem});
+            this.geçilenDiğerSayısıToolStripMenuItem,
+            this.sonGeçilenToolStripMenuItem,
+            this.çalanŞarkıToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(216, 124);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(216, 172);
             // 
             // bilgisayarlaAçılmaToolStripMenuItem
             // 
@@ -99,9 +102,17 @@ namespace Spotify_Ad_Blocker
             this.geçilenDiğerSayısıToolStripMenuItem.Size = new System.Drawing.Size(215, 24);
             this.geçilenDiğerSayısıToolStripMenuItem.Text = "Geçilen diğer sayısı:";
             // 
-            // timer2
+            // sonGeçilenToolStripMenuItem
             // 
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            this.sonGeçilenToolStripMenuItem.Name = "sonGeçilenToolStripMenuItem";
+            this.sonGeçilenToolStripMenuItem.Size = new System.Drawing.Size(215, 24);
+            this.sonGeçilenToolStripMenuItem.Text = "Son geçilen:";
+            // 
+            // çalanŞarkıToolStripMenuItem
+            // 
+            this.çalanŞarkıToolStripMenuItem.Name = "çalanŞarkıToolStripMenuItem";
+            this.çalanŞarkıToolStripMenuItem.Size = new System.Drawing.Size(215, 24);
+            this.çalanŞarkıToolStripMenuItem.Text = "Çalan Şarkı";
             // 
             // Form1
             // 
@@ -127,7 +138,8 @@ namespace Spotify_Ad_Blocker
         private System.Windows.Forms.ToolStripMenuItem bilidirimGösterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem geçilenReklamSayısıToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem geçilenDiğerSayısıToolStripMenuItem;
-        private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.ToolStripMenuItem sonGeçilenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem çalanŞarkıToolStripMenuItem;
     }
 }
 

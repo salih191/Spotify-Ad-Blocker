@@ -25,18 +25,6 @@ namespace Spotify_Ad_Blocker.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool BilgisayarlaAcilma {
-            get {
-                return ((bool)(this["BilgisayarlaAcilma"]));
-            }
-            set {
-                this["BilgisayarlaAcilma"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string SpotifyPath {
             get {

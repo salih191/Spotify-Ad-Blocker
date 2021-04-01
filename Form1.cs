@@ -73,7 +73,6 @@ namespace Spotify_Ad_Blocker
                 this.ShowInTaskbar = false;
                 this.Hide();
                 timer1.Start();
-                timer2.Start();
             }
             else
             {
@@ -109,19 +108,26 @@ namespace Spotify_Ad_Blocker
         }
         private void uygulamaVerisi()
         {
-            bilgisayarlaAçılmaToolStripMenuItem.Checked = Properties.Settings.Default.BilgisayarlaAcilma;
             bilidirimGösterToolStripMenuItem.Checked = Settings.Default.BildirimGoster;
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
+            var a = key.GetValue(Application.ProductName);
+            if (a!=null && a.Equals("\"" + Application.ExecutablePath + "\""))
+            {
+                bilgisayarlaAçılmaToolStripMenuItem.Checked = true;
+            }
+            else
+            {
+                bilgisayarlaAçılmaToolStripMenuItem.Checked = false;
+            }
         }
         private void bilgisayarlaAçılmaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             bilgisayarlaAçılmaToolStripMenuItem.Checked = !bilgisayarlaAçılmaToolStripMenuItem.Checked;
-            Properties.Settings.Default.BilgisayarlaAcilma = bilgisayarlaAçılmaToolStripMenuItem.Checked;
-            Settings.Default.Save();
             if (bilgisayarlaAçılmaToolStripMenuItem.Checked)        // program oto başlatma işaretlenirse
             {
                 //işaretlendi ise Regedit e açılışta çalıştır olarak ekle
                 RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
-                key.SetValue(Application.ProductName, "\"" + Application.ExecutablePath + "\"");
+                key.SetValue(Application.ProductName, "\"" + Application.ExecutablePath + "\""); 
             }
             else              //program oto çalıştırma iptal edilirse
             {
@@ -140,27 +146,43 @@ namespace Spotify_Ad_Blocker
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            if (spotify!=null && !spotify.HasExited)
+            {
+                çalanŞarkıToolStripMenuItem.Text = spotify.MainWindowTitle;
+                notifyIcon1.Text = spotify.MainWindowTitle;
+            }
+            spotify = spotifyHook();
             if (spotify == null)
             {
-                spotifyHook();
+                spotify = spotifyHook();
             }
-            //else if (!spotify.HasExited && spotify.MainWindowTitle.IndexOf("Advertisement") >= 0)
-            else if (!spotify.HasExited && (spotify.MainWindowTitle.Equals("Advertisement") || !spotify.MainWindowTitle.Contains(" - ")) && !spotify.MainWindowTitle.Equals("") && !spotify.MainWindowTitle.Equals("Drag") && !spotify.MainWindowTitle.Equals("Spotify Free"))
+            else if ((!spotify.HasExited) && (spotify.MainWindowTitle.Contains("Advertisement") || !spotify.MainWindowTitle.Contains(" - ")) && !spotify.MainWindowTitle.Equals("Drag") && !spotify.MainWindowTitle.Equals("Spotify Free") && !spotify.MainWindowTitle.Equals("Spotify"))
             {
 
                 if ((spotify.MainWindowTitle.Equals("Advertisement")))
                 {
                     reklamSayac++;
+                    geçilenReklamSayısıToolStripMenuItem.Text = "Geçilen toplam reklam:" + reklamSayac;
                     if (Settings.Default.BildirimGoster) notifyIcon1.ShowBalloonTip(2000, "Reklam Geçildi", "Geçilen toplam reklam:" + reklamSayac, ToolTipIcon.Info);
                 }
                 else
                 {
                     digerSayac++;
+                    geçilenDiğerSayısıToolStripMenuItem.Text = "Gecilen toplam diger:" + digerSayac;
                     if (Settings.Default.BildirimGoster) notifyIcon1.ShowBalloonTip(2000, "Diğer Geçildi", "Geçilen toplam diğer:" + digerSayac, ToolTipIcon.Info);
                 }
-                acKapa();
+
+                try
+                {
+                    sonGeçilenToolStripMenuItem.Text = "Son Gecilen:" + spotify.MainWindowTitle;
+                    acKapa();
+                }
+                catch (Exception exception)
+                {
+                    notifyIcon1.ShowBalloonTip(1000,"Hata",exception.Message,ToolTipIcon.Error);
+                }
             }
-            else
+            else if(spotify != null && !spotify.HasExited)
             {
                 spotify.Refresh();
             }
@@ -175,9 +197,8 @@ namespace Spotify_Ad_Blocker
                 {
                     process.Kill();
                 }
-
-                spotify = null;
             }
+            spotify = null;
         }
         private void spotifyMinimizeEt()
         {
@@ -215,16 +236,17 @@ namespace Spotify_Ad_Blocker
             Thread.Sleep(500);
             keybd_event(VK_MEDIA_NEXT_TRACK, 0, KEYEVENTF_EXTENTEDKEY, IntPtr.Zero);
         }
-        private void spotifyHook()
+        private Process spotifyHook()
         {
             foreach (var process in Process.GetProcessesByName(spotifyName))
             {
                 if (process.MainWindowTitle.Length > 0)
                 {
-                    spotify = process;
-                    break;
+                    return process;
                 }
             }
+
+            return null;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -239,10 +261,5 @@ namespace Spotify_Ad_Blocker
             Settings.Default.Save();
         }
 
-        private void timer2_Tick(object sender, EventArgs e)
-        {
-            geçilenDiğerSayısıToolStripMenuItem.Text = "Gecilen toplam diger:" + digerSayac;
-            geçilenReklamSayısıToolStripMenuItem.Text = "Geçilen toplam reklam:" + reklamSayac;
-        }
     }
 }
