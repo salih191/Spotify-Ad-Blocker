@@ -57,6 +57,7 @@ namespace Spotify_Ad_Blocker
 
         private Process spotify;
 
+
         private string spotifyName = "Spotify";
         private int reklamSayac = 0;
         private int digerSayac = 0;
@@ -73,6 +74,7 @@ namespace Spotify_Ad_Blocker
                 this.ShowInTaskbar = false;
                 this.Hide();
                 timer1.Start();
+                
             }
             else
             {
@@ -82,12 +84,7 @@ namespace Spotify_Ad_Blocker
         }
         private bool UygulamaKontrol()
         {
-            if (Settings.Default.ilkCalistirma)
-            {
-                Settings.Default.SpotifyPath = System.Environment.GetEnvironmentVariable("USERPROFILE") + @"\AppData\Local\Microsoft\WindowsApps\SpotifyAB.SpotifyMusic_zpdnekdrzrea0\Spotify.exe";
-                Settings.Default.ilkCalistirma = false;
-                Settings.Default.Save();
-            }
+           
             if (!File.Exists(Settings.Default.SpotifyPath))
             {
                 MessageBox.Show("spotify bulunamadı");
@@ -252,6 +249,7 @@ namespace Spotify_Ad_Blocker
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Properties.Settings.Default.Save();
+            Application.Exit();
         }
 
         private void bilidirimGösterToolStripMenuItem_Click(object sender, EventArgs e)

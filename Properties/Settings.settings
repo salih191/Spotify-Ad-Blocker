@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="SpotifyPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">""</Value>
     </Setting>
     <Setting Name="ilkCalistirma" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
